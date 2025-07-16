@@ -13,8 +13,11 @@ let grid;
 let tam = 10;
 let coluna, linha;
 
+let hueValue = 200;
+
 function setup() {
     createCanvas(800, 800);
+    colorMode(HSB, 360, 255, 255);
     coluna = width / tam;
     linha = height / tam;
     grid = criaArray2D(coluna, linha);
@@ -30,7 +33,7 @@ function mouseDragged(){
     let mouseCol = floor(mouseX / tam);
     let mouseLin = floor(mouseY / tam);
 
-    let tamanho = 3;
+    let tamanho = 5;
     let extencao = floor(tamanho/2);
     for(let i = -extencao; i <= extencao; i++){
         for(let j = -extencao; j <= extencao; j++){
@@ -38,12 +41,15 @@ function mouseDragged(){
                 let col = mouseCol + i;
                 let lin = mouseLin + j;
                 if(col >= 0 && col <= coluna - 1 && lin >= 0 && lin <= linha-1){ // Verifica se o mouse está dentro do Canvas
-                    grid[col][lin] = 1;
+                    grid[col][lin] = hueValue;
                 }
             }
         }
     }
-
+    hueValue += 0.5;
+    if(hueValue > 360){
+        hueValue = 1;
+    }
 }
 
 function draw(){
@@ -51,8 +57,8 @@ function draw(){
     for(let i = 0; i < coluna; i++){
         for(let j = 0; j < linha; j++){
             noStroke();
-            if(grid[i][j] == 1){
-                fill(grid[i][j] * 255);
+            if(grid[i][j] > 0){
+                fill(grid[i][j], 255, 255);
                 let x = i * tam;
                 let y = j * tam;
                 square(x, y, tam);
@@ -64,7 +70,7 @@ function draw(){
     for(let i = 0; i < coluna; i++){
             for(let j = 0; j < linha; j++){
                 let valor = grid[i][j];
-                if(valor === 1){
+                if(valor > 0){
                     let embaixo = grid[i][j+1];
 
                     let dir = random([-1, 1]); // Número entre -1 e 1 para a areia ir aleatoriamente pra direita ou esquerda caso já tenha areia embaixo
@@ -77,16 +83,24 @@ function draw(){
                     }
 
                     if(embaixo === 0){
-                        proxGrid[i][j+1] = 1;
+                        proxGrid[i][j+1] = grid[i][j];
                     } else if(baixoA === 0){
-                        proxGrid[i+dir][j+1] = 1;
+                        proxGrid[i+dir][j+1] = grid[i][j];
                     } else if(baixoB === 0){
-                        proxGrid[i-dir][j+1] = 1;
+                        proxGrid[i-dir][j+1] = grid[i][j];
                     } else {
-                        proxGrid[i][j] = 1;
+                        proxGrid[i][j] = grid[i][j];
                     }
                 }
             }
         }
     grid = proxGrid;
+}
+
+function resetaGrid(){
+    for (let i = 0; i < grid.length; i++) {
+        for(let j = 0; j < grid[i].length; j++){
+            grid[i][j] = 0;
+        }
+    }
 }
