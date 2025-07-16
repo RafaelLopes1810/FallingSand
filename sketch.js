@@ -32,7 +32,9 @@ function mouseDragged() {
     let mouseCol = floor(mouseX / tam);
     let mouseLin = floor(mouseY / tam);
 
-    let tamanho = 5;
+    let input = document.getElementById("tamanhoAreia");
+    let tamanho = parseInt(input?.value) || 5;
+
     let extencao = floor(tamanho / 2);
     for (let i = -extencao; i <= extencao; i++) {
         for (let j = -extencao; j <= extencao; j++) {
@@ -40,7 +42,9 @@ function mouseDragged() {
                 let col = mouseCol + i;
                 let lin = mouseLin + j;
                 if (col >= 0 && col <= coluna - 1 && lin >= 0 && lin <= linha - 1) { // Verifica se o mouse está dentro do Canvas
-                    grid[col][lin] = hueValue;
+                    if (grid[col][lin] === 0) {
+                        grid[col][lin] = hueValue;
+                    }
                 }
             }
         }

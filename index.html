@@ -6,30 +6,73 @@
     <title>Falling Sand</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="sketch.js"></script>
-</head>
-
-<body>
     <style>
-        html {
-            height: 100vh;
+        html,
+        body {
+            margin: 0;
+            padding: 0;
             background-color: darkgrey;
+        }
+
+        body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
         }
 
-        button {
-            width: 100px;
+        #top-bar {
+            width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        #left-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #tamanhoAreia {
+            width: 60px;
             height: 30px;
-            margin-bottom: 10px;
+            border-radius: 50px;
+            border: none;
+            text-align: center;
+        }
+
+        label {
+            color: black;
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        button {
+            height: 30px;
+            width: 100px;
             border: none;
             border-radius: 50px;
             background-color: black;
             color: white;
         }
-    </style>
 
-    <button onclick="resetaGrid()">redefinir</button>
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top-bar">
+        <div id="left-controls">
+            <label for="tamanhoAreia">Tamanho do Pincel:</label>
+            <input id="tamanhoAreia" type="number" min="1" max="20" value="5" title="Tamanho do pincel">
+        </div>
+        <button onclick="resetaGrid()">Redefinir</button>
+    </div>
 </body>
 
 </html>
