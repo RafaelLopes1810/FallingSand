@@ -1,3 +1,3 @@
 # FallingSand
 
-Simulação de areia caindo, projeto feito com javaScript usando Node.js, p5.js e algumas bibliotecas do javaScript. 
+Simulação de areia caindo, projeto feito com uma lógica interessante e tecnologias em javaScript como Node.js, p5.js e algumas bibliotecas. 
